@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#install.packages(\"devtools\")\n#install_github(\"Rfacebook\", \"pablobarbera\", subdir=\"Rfacebook\")\n#install.packages(\"devtools\")\n#devtools::install_github(\"hadley/httr\")\nlibrary(rjson)\nlibrary(httpuv)\nlibrary(devtools)\nlibrary(httr)\nlibrary(Rfacebook)\n\n#fb.oauth <- fbOAuth(app_id=\"\", app_secret=\"\")\n#save(fb.oauth, file=\"fb_oauth\")\n#load(\"fb_oauth\")\n\nfb.oauth = \"你的token\"\nme = getUsers(\"me\", fb.oauth)\n\nmy_friends<-getFriends(fb.oauth, simplify = TRUE)\nhead(my_friends ,n=100)\n\nmy_likes<- getLikes(user = \"me\", n = 10, token=fb.oauth)\nprint(my_likes)\n\n#朋友圈找尋NETWORK但我用不了\nmat <- getNetwork(fb.oauth, format=\"adj.matrix\")\nlibrary(igraph)\nnetwork <- graph.adjacency(mat, mode=\"undirected\")\npdf(\"network_plot.pdf\")\nplot(network)\ndev.off()\n\n\nload(\"fb.oauth\")\nfb <- getUsers(\"me\", token=fb.oauth ,private_info = TRUE)\nfb$username\n\n#PO文找尋找不到\nposts <- searchFacebook( string=\"facebook\", token=fb.oauth, n=100 )\nposts <- searchFacebook( string=\"facebook\", token=fb.oauth, n=100,\n                         since = \"yesterday 00:00\", until = \"yesterday 23:59\" )\n#公開社團內容\nload(\"fb.oauth\")\nids <- searchGroup(name=\"NCUE彰師大\", token=fb.oauth)\nids[1,] # id = 194448144020298\ngroup <- getGroup(group_id=101190690086697, token=fb.oauth)\ngroup <- getGroup(group_id=101190690086697, token=fb.oauth,\n                  since='2014/09/10', until='2016/06/30')\n#關鍵字找尋\nload(\"fb.oauth\")\npages <- searchPages( string=\"movie\", token=fb.oauth, n=100 )\npagesoscar<-searchPages( string=\"oscar\", token=fb.oauth, n=50 )\npagesAcademyAwards<-searchPages( string=\"Academy Awards\", token=fb.oauth, n=50 )\n\n\n#幫自己的fb發文\nload(\"fb.oauth\")\nupdateStatus(\"你好~\", token=fb.oauth)\n",
+    "created" : 1470910151529.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2867197466",
+    "id" : "7DC7DBB9",
+    "lastKnownWriteTime" : 1470910245,
+    "last_content_update" : 1470910245113,
+    "path" : "C:/Users/林/Desktop/0809home/fbtest/fbtestcode.R",
+    "project_path" : "fbtestcode.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
